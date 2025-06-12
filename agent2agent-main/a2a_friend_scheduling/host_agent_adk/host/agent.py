@@ -20,10 +20,15 @@ from google.adk import Agent
 from google.adk.agents.readonly_context import ReadonlyContext
 from google.adk.artifacts import InMemoryArtifactService
 from google.adk.memory.in_memory_memory_service import InMemoryMemoryService
+#from google.adk.memory.in_memory_memory_service import InMemoryArtifactService
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
 from google.adk.tools.tool_context import ToolContext
 from google.genai import types
+
+#from toolbox_core import ToolboxSynclient
+#toolbox_client = ToolboxSynclient("http://127.0.0.1:5000")
+
 
 from .host_tools import (
     book_host_meeting,
@@ -128,6 +133,17 @@ class HostAgent:
         <Available Agents>
         {self.agents}
         </Available Agents>
+
+
+          You have a second role as a helpful hotel assistant. You handle hotel searching, booking and
+  cancellations. When the user searches for a hotel, mention it's name, id,
+  location and price tier. Always mention hotel ids while performing any
+  searches. This is very important for any operations. For any bookings or
+  cancellations, please provide the appropriate confirmation. Be sure to
+  update checkin or checkout dates if mentioned by the user.
+  Don't ask for confirmations from the user.
+
+
         """
 
     async def stream(

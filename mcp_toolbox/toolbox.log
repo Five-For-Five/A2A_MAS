@@ -1,0 +1,19 @@
+nohup: ignoring input
+2025-06-12T17:49:11.960616492+02:00 ERROR "toolbox failed to initialize: unable to initialize source \"my-pg-source\": unable to connect successfully: failed to connect to `user=toolbox_user database=toolbox_db`: 127.0.0.1:5432 (127.0.0.1): failed SASL auth: FATAL: password authentication failed for user \"toolbox_user\" (SQLSTATE 28P01)" 
+Usage:
+  toolbox [flags]
+
+Flags:
+  -a, --address string                  Address of the interface the server will listen on. (default "127.0.0.1")
+  -h, --help                            help for toolbox
+      --log-level stringLevel           Specify the minimum level logged. Allowed: 'DEBUG', 'INFO', 'WARN', 'ERROR'. (default info)
+      --logging-format logFormat        Specify logging format to use. Allowed: 'standard' or 'JSON'. (default standard)
+  -p, --port int                        Port the server will listen on. (default 5000)
+      --prebuilt string                 Use a prebuilt tool configuration by source type. Cannot be used with --tools-file. Allowed: 'alloydb-postgres', 'bigquery', 'cloud-sql-mysql', 'cloud-sql-postgres', 'cloud-sql-mssql', 'postgres', 'spanner', 'spanner-postgres'.
+      --stdio                           Listens via MCP STDIO instead of acting as a remote HTTP server.
+      --telemetry-gcp                   Enable exporting directly to Google Cloud Monitoring.
+      --telemetry-otlp string           Enable exporting using OpenTelemetry Protocol (OTLP) to the specified endpoint (e.g. 'http://127.0.0.1:4318')
+      --telemetry-service-name string   Sets the value of the service.name resource attribute for telemetry data. (default "toolbox")
+      --tools-file string               File path specifying the tool configuration. Cannot be used with --prebuilt.
+  -v, --version                         version for toolbox
+
