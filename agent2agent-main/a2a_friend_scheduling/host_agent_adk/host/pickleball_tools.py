@@ -1,12 +1,12 @@
 from datetime import date, datetime, timedelta
 from typing import Dict
 
-# In-memory database for court schedules, mapping date to a dictionary of time slots and party names
+# In-memory database for host schedules, mapping date to a dictionary of time slots and meeting names
 COURT_SCHEDULE: Dict[str, Dict[str, str]] = {}
 
 
 def generate_court_schedule():
-    """Generates a schedule for the pickleball court for the next 7 days."""
+    """Generates a schedule for the host's availability for the next 7 days."""
     global COURT_SCHEDULE
     today = date.today()
     possible_times = [f"{h:02}:00" for h in range(8, 21)]  # 8 AM to 8 PM
@@ -23,7 +23,7 @@ generate_court_schedule()
 
 def list_court_availabilities(date: str) -> dict:
     """
-    Lists the available and booked time slots for a pickleball court on a given date.
+    Lists the available and booked time slots for the host on a given date.
 
     Args:
         date: The date to check, in YYYY-MM-DD format.
@@ -43,7 +43,7 @@ def list_court_availabilities(date: str) -> dict:
     if not daily_schedule:
         return {
             "status": "success",
-            "message": f"The court is not open on {date}.",
+            "message": f"The host is not available on {date}.",
             "schedule": {},
         }
 
@@ -66,7 +66,7 @@ def book_pickleball_court(
     date: str, start_time: str, end_time: str, reservation_name: str
 ) -> dict:
     """
-    Books a pickleball court for a given date and time range under a reservation name.
+    Books a meeting with the host for a given date and time range under a reservation name.
 
     Args:
         date: The date of the reservation, in YYYY-MM-DD format.
@@ -90,12 +90,12 @@ def book_pickleball_court(
         return {"status": "error", "message": "Start time must be before end time."}
 
     if date not in COURT_SCHEDULE:
-        return {"status": "error", "message": f"The court is not open on {date}."}
+        return {"status": "error", "message": f"The host is not available on {date}."}
 
     if not reservation_name:
         return {
             "status": "error",
-            "message": "Cannot book a court without a reservation name.",
+            "message": "Cannot book a meeting without a reservation name.",
         }
 
     required_slots = []
@@ -118,5 +118,5 @@ def book_pickleball_court(
 
     return {
         "status": "success",
-        "message": f"Success! The pickleball court has been booked for {reservation_name} from {start_time} to {end_time} on {date}.",
+        "message": f"Success! The meeting has been booked for {reservation_name} from {start_time} to {end_time} on {date}.",
     }
