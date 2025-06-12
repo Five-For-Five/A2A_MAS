@@ -18,7 +18,9 @@ A new set of tools is required for the Host Agent to manage the scheduling proce
 -   **Host Tools (`host_tools.py`):**
     -   **`check_friends_availability`:** This tool will take a list of friend names and a proposed date. It will use the `send_message` function to query each friend's agent for their availability on that date.
     -   **`find_common_timeslots`:** This tool will process the availability responses from the friend agents and identify overlapping time slots.
+    -   **`list_host_availability`:** This tool checks the host's own availability for given dates.
     -   **`book_host_meeting`:** This tool will take a confirmed time, date, and list of participants, and it will create a reservation in the host's schedule.
+    -   **`manage_host_availability`:** This tool allows the host to update their schedule by marking time slots as available or blocked with meetings. Can also add new dates to the schedule.
 
 ## 3. Refactor the Host Agent (`agent.py`)
 
@@ -28,7 +30,8 @@ A new set of tools is required for the Host Agent to manage the scheduling proce
     -   Completely rewrite the `root_instruction` method. The new instructions will guide the agent on its role as a pickleball scheduler.
     -   It should direct the agent to first use `check_friends_availability`, then `find_common_timeslots`, and finally `book_pickleball_court`.
 -   **Integrate Tools:**
-    -   The `create_agent` method must be updated to include the new pickleball tools in its `tools` list, alongside the existing `send_message` tool.
+    -   The `create_agent` method must be updated to include the new host tools in its `tools` list, alongside the existing `send_message` tool.
+    -   Current tools include: `send_message`, `list_host_availability`, `book_host_meeting`, and `manage_host_availability`.
 
 ## 4. Create a Server Entry Point (`__main__.py`)
 

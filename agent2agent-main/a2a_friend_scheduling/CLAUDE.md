@@ -55,7 +55,7 @@ User → Host Agent (10001) → Friend Agents (10002-10004) → A2A Protocol
 
 1. **A2A Protocol Layer**: Each agent has an `agent_executor.py` that handles A2A message routing
 2. **Agent-Specific Logic**: Core agent behavior in each module's `agent.py`
-3. **Tools**: Framework-specific tool implementations (e.g., `get_availability`, `book_host_meeting`)
+3. **Tools**: Framework-specific tool implementations (e.g., `get_availability`, `book_host_meeting`, `manage_host_availability`)
 4. **Session Management**: Each agent maintains session state for conversations
 
 ### Framework Patterns
@@ -68,8 +68,16 @@ User → Host Agent (10001) → Friend Agents (10002-10004) → A2A Protocol
 
 1. **Port Allocation**: Fixed ports (10001-10004) for each agent
 2. **In-Memory Storage**: Meeting bookings stored in memory (resets on restart)
-3. **Mock Calendars**: Friend agents use random availability generation
-4. **Async Operations**: Heavy use of async/await for concurrent agent communication
-5. **Error Handling**: Connection failures handled gracefully with fallback responses
+3. **Mock Calendars**: Friend agents use random availability generation, Host agent uses hardcoded schedule with management capabilities
+4. **Schedule Management**: Host agent can dynamically update its availability using `manage_host_availability` tool
+5. **Async Operations**: Heavy use of async/await for concurrent agent communication
+6. **Error Handling**: Connection failures handled gracefully with fallback responses
+
+### Host Agent Tools
+
+The Host agent has three main tools:
+- **`list_host_availability`**: Check host's availability for specific dates
+- **`book_host_meeting`**: Book confirmed meetings in host's schedule  
+- **`manage_host_availability`**: Update/add time slots in host's schedule (mark as available or blocked with meetings)
 
 ## Memories
