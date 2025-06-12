@@ -1,11 +1,11 @@
-# A2A Friend Scheduling Demo
-This document describes a multi-agent application demonstrating how to orchestrate conversations between different agents to schedule a meeting.
+# A2A Meeting Scheduling Demo
+This document describes a multi-agent application demonstrating how to orchestrate conversations between different agents to schedule meetings.
 
 This application contains four agents:
 *   **Host Agent**: The primary agent that orchestrates the scheduling task.
 *   **Kaitlynn Agent**: An agent representing Kaitlynn's calendar and preferences.
 *   **Nate Agent**: An agent representing Nate's calendar and preferences.
-*   **Karley Agent**: An agent representing Karley's calendar and preferences.
+*   **Karley Coaching Services**: An agent representing a voluntary coaching organization's availability for coaching sessions.
 
 ## Setup and Deployment
 

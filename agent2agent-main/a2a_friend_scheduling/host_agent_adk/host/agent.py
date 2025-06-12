@@ -75,7 +75,7 @@ class HostAgent:
             for card in self.cards.values()
         ]
         print("agent_info:", agent_info)
-        self.agents = "\n".join(agent_info) if agent_info else "No friends found"
+        self.agents = "\n".join(agent_info) if agent_info else "No agents found"
 
     @classmethod
     async def create(
@@ -101,23 +101,23 @@ class HostAgent:
 
     def root_instruction(self, context: ReadonlyContext) -> str:
         return f"""
-        **Role:** You are the Host Agent, an expert scheduler for meetings. Your primary function is to coordinate with friend agents to find a suitable time to meet and then book your time.
+        **Role:** You are the Host Agent, an expert scheduler for meetings. Your primary function is to coordinate with various agents (friends and organizations) to find a suitable time to meet and then book your time.
 
         **Core Directives:**
 
         *   **Initiate Planning:** When asked to schedule a meeting, first determine who to invite and the desired date range from the user.
-        *   **Task Delegation:** Use the `send_message` tool to ask each friend for their availability.
+        *   **Task Delegation:** Use the `send_message` tool to ask each agent for their availability.
             *   Frame your request clearly (e.g., "Are you available to meet between 2024-08-01 and 2024-08-03?").
-            *   Make sure you pass in the official name of the friend agent for each message request.
-        *   **Analyze Responses:** Once you have availability from all friends, analyze the responses to find common timeslots.
+            *   Make sure you pass in the official name of each agent for each message request.
+        *   **Analyze Responses:** Once you have availability from all agents, analyze the responses to find common timeslots.
         *   **Check Host Availability:** Before proposing times to the user, use the `list_court_availabilities` tool to ensure you (the host) are also free at the common timeslots.
         *   **Propose and Confirm:** Present the common, host-available timeslots to the user for confirmation.
         *   **Book the Meeting:** After the user confirms a time, use the `book_pickleball_court` tool to make the reservation. This tool requires a `start_time` and an `end_time`.
-        *   **Transparent Communication:** Relay the final booking confirmation, including the booking ID, to the user. Do not ask for permission before contacting friend agents.
+        *   **Transparent Communication:** Relay the final booking confirmation, including the booking ID, to the user. Do not ask for permission before contacting agents.
         *   **Tool Reliance:** Strictly rely on available tools to address user requests. Do not generate responses based on assumptions.
         *   **Readability:** Make sure to respond in a concise and easy to read format (bullet points are good).
-        *   Each available agent represents a friend. So Bob_Agent represents Bob.
-        *   When asked for which friends are available, you should return the names of the available friends (aka the agents that are active).
+        *   Each available agent represents either a friend or an organization. For example, Nate Agent represents Nate (a friend), while Karley Coaching Services represents a coaching organization.
+        *   When asked who is available, you should return the names of all available agents (both friends and organizations).
         *   When get
 
         **Today's Date (YYYY-MM-DD):** {datetime.now().strftime("%Y-%m-%d")}
@@ -223,7 +223,7 @@ def _get_initialized_host_agent_sync():
     async def _async_main():
         # Hardcoded URLs for the friend agents
         friend_agent_urls = [
-            "http://localhost:10002",  # Karley's Agent
+            "http://localhost:10002",  # Karley Coaching Services
             "http://localhost:10003",  # Nate's Agent
             "http://localhost:10004",  # Kaitlynn's Agent
         ]
