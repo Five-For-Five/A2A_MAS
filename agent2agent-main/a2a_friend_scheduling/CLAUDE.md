@@ -80,4 +80,12 @@ The Host agent has three main tools:
 - **`book_host_meeting`**: Book confirmed meetings in host's schedule  
 - **`manage_host_availability`**: Update/add time slots in host's schedule (mark as available or blocked with meetings)
 
+## Architecture Diagrams
+
+For detailed system architecture and data flow diagrams, see [mermaid_diagrams.md](./mermaid_diagrams.md), which includes:
+- Host Agent Tools and Data Flow
+- A2A Protocol Communication Sequence  
+- Host Agent Schedule Management Flow
+- Multi-Agent Meeting Scheduling Workflow
+
 ## Memories
