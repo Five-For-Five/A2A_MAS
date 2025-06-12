@@ -25,9 +25,10 @@ from google.adk.sessions import InMemorySessionService
 from google.adk.tools.tool_context import ToolContext
 from google.genai import types
 
-from .pickleball_tools import (
-    book_pickleball_court,
-    list_court_availabilities,
+from .host_tools import (
+    book_host_meeting,
+    list_host_availability,
+    manage_host_availability,
 )
 from .remote_agent_connection import RemoteAgentConnections
 
@@ -94,8 +95,9 @@ class HostAgent:
             description="This Host agent orchestrates scheduling meetings with friends.",
             tools=[
                 self.send_message,
-                book_pickleball_court,
-                list_court_availabilities,
+                book_host_meeting,
+                list_host_availability,
+                manage_host_availability,
             ],
         )
 
@@ -110,9 +112,10 @@ class HostAgent:
             *   Frame your request clearly (e.g., "Are you available to meet between 2024-08-01 and 2024-08-03?").
             *   Make sure you pass in the official name of each agent for each message request.
         *   **Analyze Responses:** Once you have availability from all agents, analyze the responses to find common timeslots.
-        *   **Check Host Availability:** Before proposing times to the user, use the `list_court_availabilities` tool to ensure you (the host) are also free at the common timeslots.
+        *   **Check Host Availability:** Before proposing times to the user, use the `list_host_availability` tool to ensure you (the host) are also free at the common timeslots.
         *   **Propose and Confirm:** Present the common, host-available timeslots to the user for confirmation.
-        *   **Book the Meeting:** After the user confirms a time, use the `book_pickleball_court` tool to make the reservation. This tool requires a `start_time` and an `end_time`.
+        *   **Book the Meeting:** After the user confirms a time, use the `book_host_meeting` tool to make the reservation. This tool requires a `start_time` and an `end_time`.
+        *   **Manage Availability:** If asked to update your schedule, use the `manage_host_availability` tool to mark time slots as available or blocked with meetings. You can update existing dates or add new dates to your schedule.
         *   **Transparent Communication:** Relay the final booking confirmation, including the booking ID, to the user. Do not ask for permission before contacting agents.
         *   **Tool Reliance:** Strictly rely on available tools to address user requests. Do not generate responses based on assumptions.
         *   **Readability:** Make sure to respond in a concise and easy to read format (bullet points are good).

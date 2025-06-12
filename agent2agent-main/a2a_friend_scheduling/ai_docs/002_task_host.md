@@ -1,6 +1,6 @@
 # Task: Refactor the Host Agent
 
-This document outlines the plan for refactoring the `host` agent (previously the `RoutingAgent`) to act as the central orchestrator for scheduling pickleball games with friend agents.
+This document outlines the plan for refactoring the `host` agent (previously the `RoutingAgent`) to act as the central orchestrator for scheduling meetings with friend agents and organizations.
 
 ## 1. Project Structure and Naming
 
@@ -8,17 +8,17 @@ This document outlines the plan for refactoring the `host` agent (previously the
 -   **Rename `host_agent` to `host`:** Rename the top-level `host_agent` directory to just `host` for consistency with the other agent directories (`karley_agent`, etc.).
 -   **Rename `RoutingAgent`:** The class `RoutingAgent` in `agent.py` should be renamed to `HostAgent` to more accurately reflect its new role.
 
-## 2. Develop Pickleball Scheduling Tools
+## 2. Develop Host Scheduling Tools
 
-A new set of tools is required for the Host Agent to manage the scheduling process. These will be created in a new file: `host/pickleball_tools.py`.
+A new set of tools is required for the Host Agent to manage the scheduling process. These will be created in a new file: `host/host_tools.py`.
 
 -   **Database Setup (`db.py`):**
     -   Create a file `host/db.py` to manage the SQLite database connection.
     -   It will include functions to initialize the database and create a `reservations` table with columns for `id`, `datetime`, `friend_name`, and `court_id`.
--   **Pickleball Tools (`pickleball_tools.py`):**
+-   **Host Tools (`host_tools.py`):**
     -   **`check_friends_availability`:** This tool will take a list of friend names and a proposed date. It will use the `send_message` function to query each friend's agent for their availability on that date.
     -   **`find_common_timeslots`:** This tool will process the availability responses from the friend agents and identify overlapping time slots.
-    -   **`book_pickleball_court`:** This tool will take a confirmed time, date, and list of friends, and it will create a reservation in the SQLite database.
+    -   **`book_host_meeting`:** This tool will take a confirmed time, date, and list of participants, and it will create a reservation in the host's schedule.
 
 ## 3. Refactor the Host Agent (`agent.py`)
 
